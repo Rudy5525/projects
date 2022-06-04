@@ -1,0 +1,23 @@
+Colors:
+
+main-gold: #E6C07B
+duller-gold: #B1A276
+icons-bg-gold: #C2A36A
+main-black-font: #121232
+secondary-greyish-font: #535353
+black-bg: #141B20
+gray-bg: #F4F4F4
+
+------------------------------------------------------------
+
+Fonts:
+
+main-font: Lora, Helvetica, Arial, sans-serif;
+little-title-font: Lato, Helvetica, Arial, sans-serif;
+slider-font: Open Sans, serif;
+
+------------------------------------------------------------
+
+Icons:
+
+Bootstrap
