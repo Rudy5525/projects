@@ -169,10 +169,13 @@ img{
     line-height: 3rem;
 }
 
+
 /* ---------------------------------------------------------------------------
                                 Section 2 
 -------------------------------------------------------------------------------*/
-
+.section__hero{
+    position: relative;
+}
 .slider{
     width: 100%;
     min-height: 70vw;
@@ -199,9 +202,9 @@ img{
 .slide__header{
     position: absolute;
     z-index: 901;
-    top: 35%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     margin: 0 auto;    
     width: 90%;
 
@@ -298,7 +301,7 @@ img{
     font-size: 1.3rem;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
-
+    letter-spacing: .5px;
     text-transform: uppercase;
     color: var(--icon-gold);
 }
@@ -342,13 +345,13 @@ img{
 }
 .steps__item{
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     padding: 3rem 0;
 
     font-family: var(--slider-title-font-family);
 }
 .steps__item--icon i{
-    padding: 3rem;
+    padding: 2.5rem;
     margin-right: 2rem;
 
     font-size: 2.4rem;
@@ -549,6 +552,7 @@ img{
     width: 70%;
 }
 .footer__nav{
+    font-size: 1.5rem;
     border: 1px solid rgba(79, 79, 79, 0.1);
     color: var(--main-p-color);
 }
@@ -559,7 +563,7 @@ img{
     display: block;
 }
 .footer__nav .nav__item{
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 .copyright{
     align-self: flex-end;
@@ -580,6 +584,9 @@ img{
     }
 }
 @media only screen and (min-width: 800px){   
+    .container{
+        width: 90%;
+    }
     .header{
         position: absolute;
         z-index: 999;
@@ -597,7 +604,122 @@ img{
         display: block;
     }
     .logo{
+        margin-left: 0rem;
+    }
+    .section__hero{
+        min-height: 100vh;
+    }
+    .section__hero .container{
+        min-height: 20vh;
+        position: relative;
+    }
+    .section__hero .grid-container{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 60%;
+
+        grid-template-columns: repeat(3, 240px);
+        justify-content: center;
+    }
+    .section__hero .grid-item{
+        flex-direction: column;
+        padding: 6rem 0;
+    }
+    .grid-item h3{
+        max-width: 90%;
+    }
+    .grid-item i{
+        margin-bottom: 2rem;
+    }
+    .section__services .grid-container{
+        width: 85%;
+        margin: 0 auto;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+    }
+    .section__services .grid-item{
+        padding: 6rem 0;
+    }
+    .section__steps .grid-container{
+        width: 60%;
+        margin: 0 auto;
+        justify-content: center;
+        grid-template-rows: 120px repeat(3, 25rem);
+        box-shadow: none;
+    }
+    .steps__item{
+        padding: 0;
+        flex-flow: row wrap;
+    }
+    .team-members__wrapper{
+        max-width: 80%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0 3rem;
+    }
+    .team-member{
+        min-height: min-content;
         margin: 0;
+        display: grid;
+        grid-template-columns: 45% 55%;
+        align-content: start;
+        align-items: center;
+    }
+    .team-member__img{
+        position: initial;
+        height: 100%;
+        /* max-height: 340px; */
+        object-fit: cover;
+    }
+    .team-member__content{
+        max-height: 340px;
+        padding: 2rem 1rem;
+    }
+    .team__footer p{
+        max-width: 80%;
+    }
+    .sponsors__list{
+        max-width: 80%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem 2rem;
+    }
+    .footer__links{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+    }
+    .footer__links--item{
+        margin-bottom: 0;
+        justify-self: center;
+    }
+    .footer__nav{
+        max-width: 85%;
+        margin: 0 auto;
+    }
+    .footer__nav .nav{
+        flex-direction: row;
+    }
+    .footer__nav .nav__list{
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .footer__nav .nav__item + .nav__item{
+        margin-left: 4rem;
+    }
+    .copyright{
+        padding-top: 0;
+        align-self: flex-start;
+        text-align: right;
+    }
+    .copyright a{
+        display: block;
+        margin-top: 1rem;
     }
 }
 @media only screen and (min-width: 1000px){
