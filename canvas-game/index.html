@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"
+            integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="./index.js" type="module" defer></script>
+        <title>Canvas Game</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+                overflow: hidden;
+                background-color: black;
+            }
+            h1,
+            p {
+                margin: 0;
+            }
+            .hidden {
+                display: none;
+            }
+            .score-table {
+                user-select: none;
+                top: 10px;
+                margin-left: 10px;
+                position: fixed;
+                color: rgba(255, 255, 255, 0.5);
+            }
+            .modal {
+                text-align: center;
+                width: min(75%, 700px);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 24px 0;
+                background-color: white;
+                position: absolute;
+            }
+            .start-button {
+                width: 80%;
+                padding: 16px 32px;
+                /* margin-bottom: 10px; */
+                background-color: rgb(0, 128, 255);
+                color: white;
+                border: none;
+                border-radius: 100vh;
+                cursor: pointer;
+            }
+
+            .modal p {
+                margin: 8px 0 16px;
+                color: rgba(0, 0, 0, 0.5);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="score-table">
+            <span class="score">Score: </span>
+            <span class="number" id="score">0</span>
+        </div>
+        <div class="modal">
+            <h1 class="final-score">0</h1>
+            <p>Points</p>
+            <div class="button-div">
+                <button class="start-button">Start game</button>
+            </div>
+        </div>
+        <canvas></canvas>
+    </body>
+</html>
