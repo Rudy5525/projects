@@ -37,8 +37,10 @@ body {
   overflow: hidden;
 }
 
-/* Modal window */
-.modal-window {
+/*---------------------------------------------------------------------------------------------------
+                                        CONTAINERS  
+ ----------------------------------------------------------------------------------------------------*/
+.modal {
   display: none;
   position: absolute;
   z-index: 999;
@@ -50,35 +52,39 @@ body {
 
   background-color: rgba(0, 0, 0, 0.5);
 }
-.modal-form {
+.modal__active {
+  display: flex;
+}
+.modal--window {
   position: relative;
-  width: 45%;
+
+  width: max(285px, 45%);
   max-height: 800px;
+
   padding: 3.5rem 2rem 2rem;
 
   border-radius: 1rem;
 
   background-color: rgba(255, 255, 255, 1);
 }
-.modal-form-container {
+.modal--window__grid {
   max-height: 700px;
   padding-top: 0.75rem;
 
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   gap: 20px 5px;
 
   overflow-y: auto;
 }
-.modal-form-container::-webkit-scrollbar {
+.modal--window__grid::-webkit-scrollbar {
   width: 10px;
   margin-right: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50vh;
 }
-.modal-form-container::-webkit-scrollbar-thumb {
-  width: 100%;
+.modal--window__grid::-webkit-scrollbar-thumb {
   border-radius: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -93,32 +99,31 @@ body {
   height: 28px;
   cursor: pointer;
 }
-.open {
-  display: flex;
-}
+
 /* HEADER */
-.header-container {
+.header {
   margin: 60px 0 60px;
 }
-.header {
+.header--title {
   font-size: 72px;
   font-weight: 600;
+  font-family: "Orbitron", sans-serif;
   letter-spacing: 3px;
   color: white;
-  font-family: "Orbitron", sans-serif;
+  text-align: center;
   user-select: none;
 }
 /* MAIN CONTAINER */
 .container {
   width: 90%;
   margin-bottom: 20px;
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
   display: grid;
 
   gap: 50px 20px;
   justify-items: center;
 
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 .container::-webkit-scrollbar {
   width: 10px;
@@ -134,15 +139,97 @@ body {
     rgba(255, 0, 255, 0.8)
   );
 }
-/*  Movie images styles */
-.transform {
-  transition: transform 0.5s;
+/*---------------------------------------------------------------------------------------------------
+                                          CARDS STYLES  
+ ----------------------------------------------------------------------------------------------------*/
+
+.card-flip {
+  transform: rotateY(180deg);
 }
-.transform:hover {
-  transform: scale(1.1);
-}
-.outer-card-div {
+.card-wrapper {
+  height: 300px;
+  width: 200px;
+
   position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+.card {
+  height: 100%;
+  width: 100%;
+  display: block;
+  user-select: none;
+  backface-visibility: hidden;
+}
+.card-front {
+  --rotateX: 0;
+  --rotateY: 0;
+  --angle: 0;
+  --shadowX: 0;
+  --shadowY: 0;
+  transform: rotate3d(
+    var(--rotateX),
+    var(--rotateY),
+    0,
+    calc(var(--angle) * 1deg)
+  );
+  box-shadow: calc(var(--shadowX) * 1px) calc(var(--shadowY) * 1px) 10px
+    rgba(0, 0, 0, 0.4);
+}
+.card-front img {
+  height: 100%;
+  width: 100%;
+}
+/* Card reversal*/
+.card-back {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  padding: 1rem 1rem 0 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Oswald", sans-serif;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  transform: rotateY(180deg);
+}
+.card-back-p {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: goldenrod;
+}
+.card-back-span {
+  font-size: 1.3rem;
+  color: white;
+}
+/* Smaller version of card for modal window list*/
+.card--small {
+  min-height: 180px;
+  width: 100px;
+  box-shadow: none;
+
+  display: flex;
+  flex-direction: column;
+}
+.card--small img {
+  height: 150px;
+  width: 100px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.card--small__title {
+  margin-bottom: 5px;
+  text-align: center;
+  word-wrap: break-word;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 0.25px;
+  line-height: 1.25;
 }
 .remove-btn {
   position: absolute;
@@ -165,74 +252,9 @@ body {
   height: 20px;
   stroke: rgba(255, 0, 0, 0.5);
 }
-.card {
-  display: none;
-  --rotateX: 0;
-  --rotateY: 0;
-  --shadowX: 100px;
-  --shadowY: 100px;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.4);
-
-  /* transform: rotate3d(var(--rotateX), var(--rotateY), 0, 30deg); */
-  box-shadow: calc(var(--shadowX) * 1px) calc(var(--shadowY) * 1px) 24px
-    rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  user-select: none;
-}
-
-.card--small {
-  min-height: 180px;
-  width: 100px;
-
-  display: flex;
-  flex-direction: column;
-}
-.card img {
-  height: 300px;
-  width: 200px;
-}
-.card--small img {
-  height: 150px;
-  width: 100px;
-  margin-bottom: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-.card--small__title {
-  margin-bottom: 5px;
-  text-align: center;
-  word-wrap: break-word;
-  font-family: "Oswald", sans-serif;
-  letter-spacing: 0.25px;
-  line-height: 1.25;
-}
-/* Card reversal*/
-.card-back {
-  display: none;
-  height: 300px;
-  width: 200px;
-  padding: 1rem;
-
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  font-family: "Oswald", sans-serif;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-.card-back-p {
-  text-align: center;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: goldenrod;
-}
-.card-back-span {
-  font-size: 1.3rem;
-  color: white;
-}
-.active-card-side {
-  display: flex;
-}
-/* Adding new movie   */
+/*---------------------------------------------------------------------------------------------------
+                                            NEW MOVIE FRAME   
+ ----------------------------------------------------------------------------------------------------*/
 .new-movie-frame {
   height: 300px;
   width: 200px;
@@ -279,8 +301,8 @@ body {
 }
 .new-movie-p {
   font-size: 2rem;
-  text-transform: uppercase;
   font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
 }
 @media only screen and (min-width: 500px) {
   .container {
@@ -296,14 +318,31 @@ body {
   .container {
     grid-template-columns: repeat(4, 1fr);
   }
+  .modal--window__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media only screen and (min-width: 1300px) {
   .container {
     grid-template-columns: repeat(5, 1fr);
   }
+  .modal--window__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 @media only screen and (min-width: 1700px) {
   .container {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .modal--window__grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media only screen and (min-width: 2000px) {
+  .container {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .modal--window__grid {
     grid-template-columns: repeat(6, 1fr);
   }
 }

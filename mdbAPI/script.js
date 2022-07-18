@@ -122,13 +122,14 @@ const movies = [
   },
 ];
 const button = document.querySelector(".addMovie-btn");
-const modal = document.querySelector(".modal-window");
-const movieList = document.querySelector(".modal-form-container");
+const modal = document.querySelector(".modal");
+const movieList = document.querySelector(".modal--window__grid");
 const closeModalButton = document.querySelector(".close-modal__icon");
+let frame;
 let cards;
 let cardsID = [];
 
-// Checks if there are any movies stored in localStorage
+// Checks if there are any movies stored in localStorage, if there are - prints them on the screen
 if (localStorage.length > 0) {
   cards = [...getFromLS()];
   cards.forEach((card) => {
@@ -141,7 +142,6 @@ if (localStorage.length > 0) {
 } else {
   cards = [];
 }
-
 // Adds movies list to modal window
 movies.forEach((movie) => {
   let div = document.createElement("div");
@@ -167,58 +167,82 @@ movies.forEach((movie) => {
 
   movieList.appendChild(div);
 });
-
 // Adds movie to the screen and to localStorage after choosing from modal window
 function addMovie(movie) {
   cards.push(
     new Card(movie.id, movie.name, movie.director, movie.imgURL, movie.year)
   );
   cardsID.push(movie.id);
-  // let lastCard = cards.slice(-1);
   appendToSite(movie);
   updateLS();
 }
-function updateLS() {
-  let cardsSerialized = JSON.stringify(cards);
-  localStorage.setItem("Cards", cardsSerialized);
-}
-function getFromLS() {
-  return JSON.parse(localStorage.getItem("Cards"));
-}
-function closeModal() {
-  modal.classList.remove("open");
-}
-function openModal() {
-  modal.classList.add("open");
-}
+
+// -------------------------------------------------------------------------------
+//              Functions to create new card on main screen
+// ---------------------------------------------------------------------------------
+
+// Creates card wrapper and appends it to site, before new movie frame
 function appendToSite(card) {
   const elem = document.querySelector(".new-movie-frame");
   let outerDiv = document.createElement("div");
-  let frontCard = createFrontCard(card);
-  let backCard = createBackCard(card);
-  outerDiv.classList.add("outer-card-div", "transform");
+  outerDiv.classList.add("card-wrapper");
   outerDiv.dataset.id = `${card.id}`;
-  let removeCardBtn = createBtn(outerDiv);
+  let frontCard = createFrontCard(card, outerDiv);
+  let removeCardBtn = createBtn(frontCard);
+  let backCard = createBackCard(card);
 
   outerDiv.addEventListener("click", () => {
-    frontCard.classList.toggle("active-card-side");
-    backCard.classList.toggle("active-card-side");
+    outerDiv.classList.toggle("card-flip");
+    stopAnimation(frontCard);
   });
+
+  frontCard.appendChild(removeCardBtn);
   outerDiv.appendChild(frontCard);
   outerDiv.appendChild(backCard);
-  outerDiv.appendChild(removeCardBtn);
   elem.before(outerDiv);
 }
-
-function createFrontCard(card) {
+// Creates front of the card and its animation
+function createFrontCard(card, outerDiv) {
   let frontCard = document.createElement("div");
-  frontCard.classList.add("card", "active-card-side");
+  frontCard.classList.add("card", "card-front");
   frontCard.insertAdjacentHTML(
     "beforeend",
     `<img src= ${card.imgURL} alt=${card.name}>`
   );
+
+  let position, centerX, centerY;
+
+  frontCard.addEventListener("mouseenter", (e) => {
+    position = outerDiv.getBoundingClientRect();
+    centerX = (position.right - position.left) / 2 + position.left;
+    centerY = (position.bottom - position.top) / 2 + position.top;
+  });
+  // Adds 3d rotation effect when hovered to front side of the card
+  frontCard.addEventListener("mousemove", (e) => {
+    let mouseX = e.x;
+    let mouseY = e.y;
+    let rotateY = (centerX - mouseX) / 100;
+    let rotateX = (centerY - mouseY) / 150;
+
+    frontCard.style.setProperty("--rotateY", `${rotateY}`);
+    frontCard.style.setProperty("--rotateX", `${-rotateX}`);
+
+    if (Math.abs(rotateX) > Math.abs(rotateY)) {
+      frontCard.style.setProperty("--angle", `${rotateX * 30}`);
+    } else {
+      frontCard.style.setProperty("--angle", `${rotateY * 30}`);
+    }
+    frontCard.style.setProperty("--shadowX", `${rotateY * 30}`);
+    frontCard.style.setProperty("--shadowY", `${rotateX * 45}`);
+  });
+
+  frontCard.addEventListener("mouseleave", () => {
+    stopAnimation(frontCard);
+  });
+
   return frontCard;
 }
+// Creates back of the card
 function createBackCard(card) {
   let backCard = document.createElement("div");
   backCard.classList.add("card", "card-back");
@@ -230,6 +254,7 @@ function createBackCard(card) {
   );
   return backCard;
 }
+// Creates button to remove a movie from library
 function createBtn(div) {
   let removeCardBtn = document.createElement("div");
   removeCardBtn.classList.add("remove-btn");
@@ -250,6 +275,7 @@ function createBtn(div) {
         />
       </svg>`
   );
+  // Removes movie from screen, arrays and localStorage after clicking
   removeCardBtn.addEventListener("click", () => {
     cards.forEach((card, index) => {
       if (div.dataset.id == card.id) {
@@ -262,6 +288,29 @@ function createBtn(div) {
   });
   return removeCardBtn;
 }
+
+// ----------------------------------------------------
+//              Helper functions
+// ----------------------------------------------------
+
+function updateLS() {
+  let cardsSerialized = JSON.stringify(cards);
+  localStorage.setItem("Cards", cardsSerialized);
+}
+function getFromLS() {
+  return JSON.parse(localStorage.getItem("Cards"));
+}
+function closeModal() {
+  modal.classList.remove("modal__active");
+}
+function openModal() {
+  modal.classList.add("modal__active");
+}
+function stopAnimation(card) {
+  card.style.setProperty("--rotateX", 0);
+  card.style.setProperty("--rotateY", 0);
+  card.style.setProperty("--shadowX", 0);
+  card.style.setProperty("--shadowY", 0);
+}
 button.addEventListener("click", openModal);
 closeModalButton.addEventListener("click", closeModal);
-// localStorage.clear();
