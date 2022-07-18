@@ -188,15 +188,16 @@ function appendToSite(card) {
   outerDiv.classList.add("card-wrapper");
   outerDiv.dataset.id = `${card.id}`;
   let frontCard = createFrontCard(card, outerDiv);
-  let removeCardBtn = createBtn(frontCard);
+  let removeCardBtn = createBtn(outerDiv);
   let backCard = createBackCard(card);
 
   outerDiv.addEventListener("click", () => {
     outerDiv.classList.toggle("card-flip");
+    removeCardBtn.classList.toggle("remove-btn__hidden");
     stopAnimation(frontCard);
   });
 
-  frontCard.appendChild(removeCardBtn);
+  outerDiv.appendChild(removeCardBtn);
   outerDiv.appendChild(frontCard);
   outerDiv.appendChild(backCard);
   elem.before(outerDiv);
