@@ -1,179 +1,170 @@
 import Card from "./Card.js";
-const movies = [
+const moviesOffline = [
   {
     id: 1,
-    name: "Thor",
-    imgURL:
+    title: "Thor",
+    image:
       "https://www.themoviedb.org/t/p/w1280/mfjJLZK9JvflsKM3gVMnX7QJzKJ.jpg",
-    director: "Kenneth Branagh",
+    crew: "Kenneth Branagh",
     year: 2011,
   },
   {
     id: 2,
-    name: "Avengers: Infinity War",
-    imgURL:
+    title: "Avengers: Infinity War",
+    image:
       "https://www.themoviedb.org/t/p/w1280/zLLs37yOubp9Snt5n1UE0DKvWGo.jpg",
-    director: "Anthony Russo",
+    crew: "Anthony Russo",
     year: 2018,
   },
   {
     id: 3,
-    name: "Ted",
-    imgURL:
+    title: "Ted",
+    image:
       "https://www.themoviedb.org/t/p/w1280/osJNr64CNyGhCzdlg6oHt3a6vNA.jpg",
-    director: "Seth MacFarlane",
+    crew: "Seth MacFarlane",
     year: 2012,
   },
   {
     id: 4,
-    name: "Kung Fu Panda",
-    imgURL:
+    title: "Kung Fu Panda",
+    image:
       "https://www.themoviedb.org/t/p/w1280/wWt4JYXTg5Wr3xBW2phBrMKgp3x.jpg",
-    director: "Mark Osborne",
+    crew: "Mark Osborne",
     year: 2008,
   },
   {
     id: 5,
-    name: "Jurassic Park",
-    imgURL:
+    title: "Jurassic Park",
+    image:
       "https://www.themoviedb.org/t/p/w1280/6PahEke329HOQx1QOqlo12e4YXa.jpg",
-    director: "Michael Crichton",
+    crew: "Michael Crichton",
     year: 1993,
   },
   {
     id: 6,
-    name: "Shrek",
-    imgURL:
+    title: "Shrek",
+    image:
       "https://www.themoviedb.org/t/p/w1280/dyhaB19AICF7TO7CK2aD6KfymnQ.jpg",
-    director: "Andrew Adamson",
+    crew: "Andrew Adamson",
     year: 2001,
   },
   {
     id: 7,
-    name: "Spider-Man",
-    imgURL:
+    title: "Spider-Man",
+    image:
       "https://www.themoviedb.org/t/p/w1280/gh4cZbhZxyTbgxQPxD0dOudNPTn.jpg",
-    director: "Sam Raimi",
+    crew: "Sam Raimi",
     year: 2002,
   },
   {
     id: 8,
-    name: "Spider-Man: No Way Home",
-    imgURL:
+    title: "Spider-Man: No Way Home",
+    image:
       "https://www.themoviedb.org/t/p/w1280/1Pb65hcIv4ymPBbH7ycRM2UUcga.jpg",
-    director: "Jon Watts",
+    crew: "Jon Watts",
     year: 2021,
   },
   {
     id: 9,
-    name: "Shrek Forever",
-    imgURL:
+    title: "Shrek Forever",
+    image:
       "https://www.themoviedb.org/t/p/w1280/mAn7hsIH0HgVVQOylvldl1HzySE.jpg",
-    director: "Mike Mitchell",
+    crew: "Mike Mitchell",
     year: 2010,
   },
   {
     id: 10,
-    name: "The Shawshank Redemption",
-    imgURL:
+    title: "The Shawshank Redemption",
+    image:
       "https://www.themoviedb.org/t/p/w1280/sBnhJ4f5KAzg6C3FwnEb8QFj8SB.jpg",
-    director: "Frank Darabont",
+    crew: "Frank Darabont",
     year: 1994,
   },
   {
     id: 11,
-    name: "Death Note",
-    imgURL:
+    title: "Death Note",
+    image:
       "https://www.themoviedb.org/t/p/w1280/vapuYy7yrYcML9bHuq5ct97hpSY.jpg",
-    director: "Shusuke Kaneko, Hideo Nakata, Shinsuke Sato",
+    crew: "Shusuke Kaneko, Hideo Nakata, Shinsuke Sato",
     year: 2006,
   },
   {
     id: 12,
-    name: "Game of Thrones",
-    imgURL:
+    title: "Game of Thrones",
+    image:
       "https://www.themoviedb.org/t/p/w1280/rz4fSqurRILu7IcAKCIgUCYJouV.jpg",
-    director: "David Benioff, D. B. Weiss",
+    crew: "David Benioff, D. B. Weiss",
     year: 2011,
   },
   {
     id: 13,
-    name: "Fantastic Beasts: The Secrets of Dumbledore",
-    imgURL:
+    title: "Fantastic Beasts: The Secrets of Dumbledore",
+    image:
       "https://www.themoviedb.org/t/p/w1280/cekxVfkFg0T8KUUmJjhEkJmY09S.jpg",
-    director: "David Yates",
+    crew: "David Yates",
     year: 2022,
   },
   {
     id: 14,
-    name: "Pirates of the Caribbean: The Curse of the Black Pearl",
-    imgURL:
+    title: "Pirates of the Caribbean: The Curse of the Black Pearl",
+    image:
       "https://www.themoviedb.org/t/p/w1280/uqReraSvOaQXLkFp3TjqQQT2daf.jpg",
-    director: "Gore Verbinski",
+    crew: "Gore Verbinski",
     year: 2003,
   },
   {
     id: 15,
-    name: "The Walking Dead",
-    imgURL:
+    title: "The Walking Dead",
+    image:
       "https://www.themoviedb.org/t/p/w1280/rqeYMLryjcawh2JeRpCVUDXYM5b.jpg",
-    director: "Frank Darabont",
+    crew: "Frank Darabont",
     year: 2010,
   },
 ];
-const button = document.querySelector(".addMovie-btn");
+let movies = [];
 const modal = document.querySelector(".modal");
 const movieList = document.querySelector(".modal--window__grid");
 const closeModalButton = document.querySelector(".close-modal__icon");
-let frame;
+const button = document.querySelector(".addMovie-btn");
+const sortButtons = document.querySelectorAll(".sort-option");
+const searchBar = document.querySelector("#search-bar");
 let cards;
-let cardsID = [];
+let moviesID = [];
+let currentOption = 0;
 
+// --------------------------------------------------------------------------------------------
+//                                    API CALL
+// --------------------------------------------------------------------------------------------
+const apiKey = "a0f0be33"; // OMDB apiKey
+const apiURL = `http://www.omdbapi.com/?apikey=[${apiKey}]&Thor`;
+async function getMovies() {
+  // const response = await fetch(apiURL);
+  // const data = await response.json();
+  // console.log(data);
+  // movies = data.items;
+  if (movies.length == 0) movies = moviesOffline;
+  displayMovies(movies);
+}
 // Checks if there are any movies stored in localStorage, if there are - prints them on the screen
 if (localStorage.length > 0) {
   cards = [...getFromLS()];
-  cards.forEach((card) => {
-    cardsID.push(card.id);
-  });
-  // Prints stored movies on the screen
-  cards.forEach((card) => {
-    appendToSite(card);
-  });
+  displayCards();
 } else {
   cards = [];
 }
-// Adds movies list to modal window
-movies.forEach((movie) => {
-  let div = document.createElement("div");
-  let img = document.createElement("img");
-  let p = document.createElement("p");
 
-  div.classList.add("card", "card--small");
-  p.classList.add("card--small__title");
-  img.src = movie.imgURL;
-  img.alt = movie.name;
-  p.textContent = movie.name;
-
-  div.appendChild(img);
-  div.appendChild(p);
-  div.addEventListener("click", () => {
-    closeModal();
-    // Checks if movie is already in library
-    if (cardsID.includes(movie.id)) {
-      return console.log("Error: Movie already in library");
-    }
-    addMovie(movie);
-  });
-
-  movieList.appendChild(div);
-});
 // Adds movie to the screen and to localStorage after choosing from modal window
 function addMovie(movie) {
   cards.push(
-    new Card(movie.id, movie.name, movie.director, movie.imgURL, movie.year)
+    new Card(
+      movie.id,
+      movie.title,
+      `${movie.crew.split(" ")[0]} ${movie.crew.split(" ")[1]}`,
+      movie.image,
+      movie.year
+    )
   );
-  cardsID.push(movie.id);
-  appendToSite(movie);
+  displayCards();
   updateLS();
 }
 
@@ -218,23 +209,22 @@ function createFrontCard(card, outerDiv) {
     centerX = (position.right - position.left) / 2 + position.left;
     centerY = (position.bottom - position.top) / 2 + position.top;
   });
-  // Adds 3d rotation effect when hovered to front side of the card
+  // Adds 3d rotation effect when hovered on the front side of the card
   frontCard.addEventListener("mousemove", (e) => {
     let mouseX = e.x;
     let mouseY = e.y;
-    let rotateY = (centerX - mouseX) / 100;
-    let rotateX = (centerY - mouseY) / 150;
-
+    let rotateY = (centerX - mouseX) / ((position.right - position.left) / 2);
+    let rotateX = (centerY - mouseY) / ((position.bottom - position.top) / 2);
     frontCard.style.setProperty("--rotateY", `${rotateY}`);
     frontCard.style.setProperty("--rotateX", `${-rotateX}`);
 
     if (Math.abs(rotateX) > Math.abs(rotateY)) {
-      frontCard.style.setProperty("--angle", `${rotateX * 30}`);
+      frontCard.style.setProperty("--angle", `${rotateX * 45}`);
     } else {
-      frontCard.style.setProperty("--angle", `${rotateY * 30}`);
+      frontCard.style.setProperty("--angle", `${rotateY * 45}`);
     }
-    frontCard.style.setProperty("--shadowX", `${rotateY * 30}`);
-    frontCard.style.setProperty("--shadowY", `${rotateX * 45}`);
+    frontCard.style.setProperty("--shadowX", `${rotateY * 45}`);
+    frontCard.style.setProperty("--shadowY", `${rotateX * 60}`);
   });
 
   frontCard.addEventListener("mouseleave", () => {
@@ -249,7 +239,8 @@ function createBackCard(card) {
   backCard.classList.add("card", "card-back");
   backCard.insertAdjacentHTML(
     "beforeend",
-    `<p class='card-back-p'>Name:<br><span class='card-back-span'>${card.name}</span></p>
+    `
+    <p class='card-back-p'>Name:<br><span class='card-back-span'>${card.name}</span></p>
       <p class='card-back-p'>Director:<br><span class='card-back-span'>${card.director}</span></p>
       <p class='card-back-p'>Year:<br><span class='card-back-span'>${card.year}</span></p>`
   );
@@ -280,8 +271,8 @@ function createBtn(div) {
   removeCardBtn.addEventListener("click", () => {
     cards.forEach((card, index) => {
       if (div.dataset.id == card.id) {
-        cardsID.splice(cardsID.indexOf(Number(div.dataset.id)), 1);
-        div.style.display = "none";
+        moviesID.splice(moviesID.indexOf(Number(div.dataset.id)), 1);
+        div.remove();
         cards.splice(index, 1);
         updateLS();
       }
@@ -289,11 +280,139 @@ function createBtn(div) {
   });
   return removeCardBtn;
 }
+// Adds sorting functions to buttons on the left side
+sortButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    let option = parseInt(button.dataset.option);
+    sortAll(option);
+    currentOption = option;
 
+    sortButtons.forEach((btn) => {
+      btn.classList.remove("sort-option__active");
+      if (btn.dataset.option == currentOption)
+        btn.classList.add("sort-option__active");
+    });
+  });
+});
+// Removes all cards from library
+function clearLibrary() {
+  let displayedCards = document.querySelectorAll(".card-wrapper");
+  displayedCards.forEach((card) => {
+    card.remove();
+  });
+  moviesID = [];
+}
+// Displays all cards in library and adds its id to array
+function displayCards() {
+  cards.forEach((card) => {
+    if (!moviesID.includes(card.id)) {
+      appendToSite(card);
+      moviesID.push(card.id);
+    }
+  });
+}
+// Displays all available movies in modal window
+function displayMovies(movies) {
+  movies.forEach((movie) => {
+    let div = document.createElement("div");
+    let img = document.createElement("img");
+    let p = document.createElement("p");
+
+    div.classList.add("card", "card--small", "card--small__visible");
+    p.classList.add("card--small__title");
+    img.src = movie.image;
+    img.alt = movie.title;
+    p.textContent = movie.title;
+
+    div.appendChild(img);
+    div.appendChild(p);
+    div.addEventListener("click", () => {
+      closeModal();
+      // Checks if movie is already in library
+      if (moviesID.includes(movie.id)) {
+        return console.log("Error: Movie already in library");
+      }
+      addMovie(movie);
+      sortButtons.forEach((btn) => {
+        if (btn.classList.contains("sort-option__active"))
+          btn.classList.remove("sort-option__active");
+      });
+    });
+    movieList.appendChild(div);
+  });
+}
+getMovies();
+
+// Allows to search for specific movie on list in modal window
+searchBar.addEventListener("keyup", () => {
+  const allSmallCards = document.querySelectorAll(".card--small");
+  let input = normalizeString(searchBar.value);
+
+  allSmallCards.forEach((card) => {
+    let title = normalizeString(card.children[1].textContent).toLowerCase();
+    if (!title.includes(input)) {
+      if (card.classList.contains("card--small__visible"))
+        card.classList.remove("card--small__visible");
+    } else {
+      if (!card.classList.contains("card--small__visible"))
+        card.classList.add("card--small__visible");
+    }
+  });
+});
+// ----------------------------------------------------
+//              Sorting functions
+// ----------------------------------------------------
+function sortAll(x) {
+  switch (x) {
+    case 1:
+      sortAlphASC();
+      break;
+    case 2:
+      sortAlphDESC();
+      break;
+    case 3:
+      sortNewest();
+      break;
+    case 4:
+      sortOldest();
+      break;
+  }
+  clearLibrary();
+  displayCards();
+}
+function sortAlphASC() {
+  cards.sort((card1, card2) => {
+    let name1, name2, k;
+    name1 = card1.name.toLowerCase();
+    name2 = card2.name.toLowerCase();
+    let returnValue;
+    name1 > name2 ? (returnValue = 1) : (returnValue = -1);
+    return returnValue;
+  });
+}
+function sortAlphDESC() {
+  cards.sort((card1, card2) => {
+    let name1, name2, k;
+    name1 = card1.name.toLowerCase();
+    name2 = card2.name.toLowerCase();
+    let returnValue;
+    name1 > name2 ? (returnValue = -1) : (returnValue = 1);
+    return returnValue;
+  });
+}
+function sortNewest() {
+  cards.sort((card1, card2) => {
+    return card2.year - card1.year;
+  });
+}
+function sortOldest() {
+  cards.sort((card1, card2) => {
+    return card1.year - card2.year;
+  });
+}
 // ----------------------------------------------------
 //              Helper functions
 // ----------------------------------------------------
-
 function updateLS() {
   let cardsSerialized = JSON.stringify(cards);
   localStorage.setItem("Cards", cardsSerialized);
@@ -313,5 +432,12 @@ function stopAnimation(card) {
   card.style.setProperty("--shadowX", 0);
   card.style.setProperty("--shadowY", 0);
 }
+function normalizeString(input) {
+  return input
+    .toString()
+    .toLowerCase()
+    .replace(/[&\/\\#,+()$~%.'"-:*?<>{}]/g, "");
+}
+
 button.addEventListener("click", openModal);
 closeModalButton.addEventListener("click", closeModal);
