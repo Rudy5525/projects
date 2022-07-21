@@ -112,7 +112,24 @@ body {
   height: 28px;
   cursor: pointer;
 }
+.alert-window {
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
 
+  padding: 1rem 3rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+
+  font-size: 1.25rem;
+
+  background-color: rgba(0, 0, 0, 0.8);
+
+  visibility: hidden;
+}
+.alert {
+  font-family: "Oswald", sans-serif;
+  color: white;
+}
 /* HEADER */
 .header {
   margin: 2.5rem 0;

@@ -128,6 +128,9 @@ const closeModalButton = document.querySelector(".close-modal__icon");
 const button = document.querySelector(".addMovie-btn");
 const sortButtons = document.querySelectorAll(".sort-option");
 const searchBar = document.querySelector("#search-bar");
+const alert = document.querySelector(".alert-window");
+const alertMessage = document.querySelector(".alert");
+const alertIcon = document.querySelector(".alert--icon");
 let cards;
 let moviesID = [];
 let currentOption = 0;
@@ -135,12 +138,10 @@ let currentOption = 0;
 // --------------------------------------------------------------------------------------------
 //                                    API CALL
 // --------------------------------------------------------------------------------------------
-const apiKey = "a0f0be33"; // OMDB apiKey
-const apiURL = `http://www.omdbapi.com/?apikey=[${apiKey}]&Thor`;
+const apiURL = `https://imdb-api.com/en/API/MostPopularMovies/k_4xvg9lv2`;
 async function getMovies() {
   // const response = await fetch(apiURL);
   // const data = await response.json();
-  // console.log(data);
   // movies = data.items;
   if (movies.length == 0) movies = moviesOffline;
   displayMovies(movies);
@@ -246,7 +247,7 @@ function createBackCard(card) {
   );
   return backCard;
 }
-// Creates button to remove a movie from library
+// Creates button to remove a card from library
 function createBtn(div) {
   let removeCardBtn = document.createElement("div");
   removeCardBtn.classList.add("remove-btn");
@@ -267,7 +268,7 @@ function createBtn(div) {
         />
       </svg>`
   );
-  // Removes movie from screen, arrays and localStorage after clicking
+  // Removes card from screen, arrays and localStorage after clicking
   removeCardBtn.addEventListener("click", () => {
     cards.forEach((card, index) => {
       if (div.dataset.id == card.id) {
@@ -327,12 +328,22 @@ function displayMovies(movies) {
     div.appendChild(img);
     div.appendChild(p);
     div.addEventListener("click", () => {
+      let message, icon;
       closeModal();
+
       // Checks if movie is already in library
       if (moviesID.includes(movie.id)) {
-        return console.log("Error: Movie already in library");
+        message = "Error: Movie already in library";
+        icon = "fa-times";
+        displayAlert(message, icon, "red");
+        return;
       }
+      message = "Movie added successfully";
+      icon = "fa-check";
+      displayAlert(message, icon, "green");
+
       addMovie(movie);
+
       sortButtons.forEach((btn) => {
         if (btn.classList.contains("sort-option__active"))
           btn.classList.remove("sort-option__active");
@@ -441,3 +452,19 @@ function normalizeString(input) {
 
 button.addEventListener("click", openModal);
 closeModalButton.addEventListener("click", closeModal);
+
+function displayAlert(message, icon, iconColor) {
+  alert.style.transition = "none";
+  alert.style.visibility = "visible";
+  alert.style.opacity = 100;
+  alertMessage.textContent = message;
+  alertIcon.classList.add(icon);
+  alertIcon.style.color = iconColor;
+
+  setTimeout(() => {
+    alert.style.transition = "visibility .5s, opacity .5s linear";
+    alert.style.visibility = "hidden";
+    alert.style.opacity = 0;
+    alertIcon.classList.remove(icon);
+  }, 3000);
+}
